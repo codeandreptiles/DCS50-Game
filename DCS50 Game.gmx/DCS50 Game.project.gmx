@@ -22,22 +22,38 @@
     <sprite>sprites\fox_punch_R</sprite>
     <sprite>sprites\fox_punch_L</sprite>
     <sprite>sprites\punchbox</sprite>
+    <sprite>sprites\spr_floor</sprite>
+    <sprite>sprites\spr_ceiling</sprite>
+    <sprite>sprites\spr_wall</sprite>
   </sprites>
   <backgrounds name="background">
-    <background>background\tiles1</background>
-    <background>background\background1</background>
-    <background>background\background2</background>
+    <backgrounds name="Subway">
+      <background>background\bg_wall1</background>
+      <background>background\bg_wall2</background>
+      <background>background\bg_wall3</background>
+      <background>background\bg_chair_fwd1</background>
+      <background>background\bg_chair_fwd2</background>
+      <background>background\bg_chair_fwd3</background>
+      <background>background\bg_wall_window1</background>
+      <background>background\bg_wall_window2</background>
+      <background>background\bg_chair_side_right</background>
+      <background>background\bg_chair_side_left</background>
+    </backgrounds>
   </backgrounds>
   <paths name="paths"/>
   <objects name="objects">
-    <object>objects\obj_floor</object>
     <object>objects\obj_player</object>
     <object>objects\obj_fox</object>
     <object>objects\obj_punchbox_player</object>
     <object>objects\obj_punchbox_enemy</object>
+    <objects name="Subway">
+      <object>objects\obj_floor</object>
+      <object>objects\obj_wall</object>
+      <object>objects\obj_ceiling</object>
+    </objects>
   </objects>
   <rooms name="rooms">
-    <room>rooms\room0</room>
+    <room>rooms\rm_subway_car</room>
   </rooms>
   <help>
     <rtf>help.rtf</rtf>
