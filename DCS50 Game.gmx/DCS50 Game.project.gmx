@@ -13,15 +13,28 @@
     <sprite>sprites\android_punch</sprite>
     <sprite>sprites\android_punch_L</sprite>
     <sprite>sprites\spr_floor_tile</sprite>
+    <sprite>sprites\android_jump</sprite>
+    <sprite>sprites\android_jump_L</sprite>
+    <sprite>sprites\fox_stand_R</sprite>
+    <sprite>sprites\fox_stand_L</sprite>
+    <sprite>sprites\fox_run_R</sprite>
+    <sprite>sprites\fox_run_L</sprite>
+    <sprite>sprites\fox_punch_R</sprite>
+    <sprite>sprites\fox_punch_L</sprite>
+    <sprite>sprites\punchbox</sprite>
   </sprites>
   <backgrounds name="background">
     <background>background\tiles1</background>
     <background>background\background1</background>
+    <background>background\background2</background>
   </backgrounds>
   <paths name="paths"/>
   <objects name="objects">
     <object>objects\obj_floor</object>
     <object>objects\obj_player</object>
+    <object>objects\obj_fox</object>
+    <object>objects\obj_punchbox_player</object>
+    <object>objects\obj_punchbox_enemy</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\room0</room>

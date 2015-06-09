@@ -92,6 +92,7 @@
     <instance objName="obj_floor" x="0" y="576" name="inst_6F492637" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obj_floor" x="0" y="640" name="inst_4922325D" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obj_player" x="64" y="624" name="inst_5A4C9901" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="obj_fox" x="896" y="624" name="inst_ED4CE750" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
   </instances>
   <tiles>
     <tile bgName="tiles1" x="128" y="640" w="64" h="64" xo="75" yo="146" id="10000014" name="inst_B4AA8EBC" depth="1000000" locked="0" colour="4294967295" scaleX="1" scaleY="1"/>
