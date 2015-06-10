@@ -6,15 +6,15 @@
   <NewExtensions/>
   <sounds name="sound"/>
   <sprites name="sprites">
-    <sprite>sprites\android_stand</sprite>
-    <sprite>sprites\android_standing_L</sprite>
-    <sprite>sprites\android_run</sprite>
-    <sprite>sprites\android_run_L</sprite>
-    <sprite>sprites\android_punch</sprite>
-    <sprite>sprites\android_punch_L</sprite>
+    <sprite>sprites\player_stand_R</sprite>
+    <sprite>sprites\player_stand_L</sprite>
+    <sprite>sprites\player_run_R</sprite>
+    <sprite>sprites\player_run_L</sprite>
+    <sprite>sprites\player_punch_R</sprite>
+    <sprite>sprites\player_punch_L</sprite>
     <sprite>sprites\spr_floor_tile</sprite>
-    <sprite>sprites\android_jump</sprite>
-    <sprite>sprites\android_jump_L</sprite>
+    <sprite>sprites\player_jump_R</sprite>
+    <sprite>sprites\player_jump_L</sprite>
     <sprite>sprites\fox_stand_R</sprite>
     <sprite>sprites\fox_stand_L</sprite>
     <sprite>sprites\fox_run_R</sprite>
