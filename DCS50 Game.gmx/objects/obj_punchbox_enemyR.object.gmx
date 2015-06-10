@@ -51,7 +51,7 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if time == 2 {
+            <string>if time == 1 {
     instance_destroy()
     }
     
@@ -61,7 +61,7 @@ time += 1;
         </arguments>
       </action>
     </event>
-    <event eventtype="4" ename="obj_fox">
+    <event eventtype="4" ename="obj_player">
       <action>
         <libid>1</libid>
         <id>603</id>
@@ -78,7 +78,7 @@ time += 1;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>instance_destroy();
+            <string>instance_destroy()
 </string>
           </argument>
         </arguments>

@@ -79,6 +79,9 @@
     <instance objName="obj_fox" x="1056" y="480" name="inst_5EA352C5" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obj_wall" x="0" y="320" name="inst_83163960" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
     <instance objName="obj_wall" x="1184" y="320" name="inst_B832C4FA" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="obj_fox" x="688" y="480" name="inst_260EDDD1" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="obj_fox" x="880" y="480" name="inst_70336BB5" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
+    <instance objName="obj_book_onground" x="248" y="576" name="inst_459054A8" locked="0" code="" scaleX="1" scaleY="1" colour="4294967295" rotation="0"/>
   </instances>
   <tiles>
     <tile bgName="bg_wall3" x="192" y="384" w="128" h="128" xo="0" yo="0" id="10000147" name="inst_3D1AD036" depth="1000001" locked="0" colour="4294967295" scaleX="1" scaleY="1"/>

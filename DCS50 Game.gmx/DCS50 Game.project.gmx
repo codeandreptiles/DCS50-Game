@@ -25,6 +25,11 @@
     <sprite>sprites\spr_floor</sprite>
     <sprite>sprites\spr_ceiling</sprite>
     <sprite>sprites\spr_wall</sprite>
+    <sprite>sprites\player_hit_L</sprite>
+    <sprite>sprites\player_hit_R</sprite>
+    <sprite>sprites\fox_hit_L</sprite>
+    <sprite>sprites\fox_hit_R</sprite>
+    <sprite>sprites\spr_book</sprite>
   </sprites>
   <backgrounds name="background">
     <backgrounds name="Subway">
@@ -41,16 +46,37 @@
     </backgrounds>
   </backgrounds>
   <paths name="paths"/>
+  <scripts name="scripts">
+    <script>scripts\script0.gml</script>
+  </scripts>
+  <fonts name="fonts">
+    <font>fonts\font_arial_hp</font>
+  </fonts>
   <objects name="objects">
     <object>objects\obj_player</object>
     <object>objects\obj_fox</object>
-    <object>objects\obj_punchbox_player</object>
-    <object>objects\obj_punchbox_enemy</object>
+    <object>objects\obj_punchbox_playerL</object>
+    <object>objects\obj_punchbox_playerR</object>
+    <object>objects\obj_punchbox_enemyL</object>
+    <object>objects\obj_punchbox_enemyR</object>
     <objects name="Subway">
       <object>objects\obj_floor</object>
       <object>objects\obj_wall</object>
       <object>objects\obj_ceiling</object>
     </objects>
+    <object>objects\obj_barrier</object>
+    <objects name="friendly_projectiles">
+      <object>objects\obj_book_thrown_R</object>
+      <object>objects\obj_book_thrown_L</object>
+      <object>objects\obj_projectile</object>
+    </objects>
+    <object>objects\obj_book_onground</object>
+    <objects name="enemy_projectiles">
+      <object>objects\obj_book_thrown_enemy_R</object>
+      <object>objects\obj_book_thrown_enemy_L</object>
+      <object>objects\obj_projectile_enemy</object>
+    </objects>
+    <object>objects\obj_pickup</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\rm_subway_car</room>

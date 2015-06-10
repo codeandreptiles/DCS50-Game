@@ -5,7 +5,7 @@
   <visible>-1</visible>
   <depth>0</depth>
   <persistent>0</persistent>
-  <parentName>&lt;undefined&gt;</parentName>
+  <parentName>obj_barrier</parentName>
   <maskName>&lt;undefined&gt;</maskName>
   <events>
     <event eventtype="4" ename="obj_fox">
@@ -44,16 +44,16 @@
         <functionname>action_move</functionname>
         <codestring></codestring>
         <whoName>other</whoName>
-        <relative>0</relative>
+        <relative>-1</relative>
         <isnot>0</isnot>
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>000010000</string>
+            <string>010000000</string>
           </argument>
           <argument>
             <kind>0</kind>
-            <string>0</string>
+            <string>1</string>
           </argument>
         </arguments>
       </action>
@@ -94,16 +94,16 @@
         <functionname>action_move</functionname>
         <codestring></codestring>
         <whoName>other</whoName>
-        <relative>0</relative>
+        <relative>-1</relative>
         <isnot>0</isnot>
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>000010000</string>
+            <string>010000000</string>
           </argument>
           <argument>
             <kind>0</kind>
-            <string>0</string>
+            <string>1</string>
           </argument>
         </arguments>
       </action>
