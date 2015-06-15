@@ -25,11 +25,26 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>dir = 2;
-cooldown = 32;
+            <string>stagger = 16  //number of frames the player is stunned after being hit
+dir = 2; // 1 is left, 2 is right
+cooldown = 32; //cooldown before you can attack again
 hp = 100;
-holding = -1;
-stagger_counter = 5;
+holding = -1; //-1 if not holding anything, id of held object otherwise
+stagger_counter = stagger; 
+inv_timer = 32; //time before player can take damage after being hit
+inv_period = 32;
+damage = 5; //amount of damage each punch does
+cooldown_count = cooldown  //number of frames before the player can attack after the previous attack
+run_R = player_run_R; //sprites for easy changing
+run_L = player_run_L;
+stand_R = player_stand_R;
+stand_L = player_stand_L;
+punch_R = player_punch_R;
+punch_L = player_punch_L;
+hit_R = player_hit_R;
+hit_L = player_hit_L;
+jump_R = player_jump_R;
+jump_L = player_jump_L;
 </string>
           </argument>
         </arguments>
@@ -52,87 +67,91 @@ stagger_counter = 5;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>if hp &lt;= 0 {
+            <string>
+
+if hp &lt;= 0 {
     instance_destroy();
-    }
-if cooldown &lt; 15 {
- cooldown += 1
+}
+    
+if cooldown &lt; cooldown_count  {
+    cooldown += 1
  }
- if stagger_counter &lt; 5 {
+ 
+if inv_timer &lt; inv_period {
+    inv_timer += 1;
+}
+
+ if stagger_counter &lt; stagger {
     stagger_counter += 1;
-} else if stagger_counter == 16{
+} else if stagger_counter == 16{    //allows player to jump after stun is finished
     gravity=0; 
     gravity_direction = 270;
 }
-if place_free(x,y+1) { 
+
+if place_free(x,y+1) {  //enables gravity if above the ground
     gravity = 0.5; 
     gravity_direction = 270;
     
 } else { 
+    jumping = 0;
     gravity=0; 
     gravity_direction = 270; 
     } 
 
-if !place_free(x,y+1) and keyboard_check(vk_up) and stagger_counter == 5{
-    vspeed=-15;
+if stagger_counter == stagger {
+    if !place_free(x,y+1) and keyboard_check(vk_up) {   //jump
+        vspeed=-15;
+    }
+    
+    if place_free(x-8,y)and keyboard_check(vk_left) {   //left
+        x-=8;
+        sprite_index = player_run_L;
+        dir = 1;
+    }
+    if place_free(x+8,y)and keyboard_check(vk_right) {  //right
+        x+=8;
+        sprite_index = player_run_R;
+        dir = 2;
+    } 
 }
 
-if place_free(x-8,y)and keyboard_check(vk_left)and stagger_counter == 5{
-    x-=8;
-    sprite_index = player_run_L;
-    dir = 1;
+if (mouse_check_button(mb_left)) and (cooldown == cooldown_count ) and stagger_counter == stagger{ 
+    if  holding == -1{   //if the player isn't holding anything
+        if dir == 1{
+            sprite_index = player_punch_L;
+            
+            }
+        else if dir == 2 {
+            sprite_index = player_punch_R;
+            }
+    } else {    //throws held object
+        throw_object(dir, 1, x, y, throwleft, throwright);
+        holding = -1;
+    }
+    cooldown = 0;
 }
-if place_free(x+8,y)and keyboard_check(vk_right)and stagger_counter == 5{
-    x+=8;
-    sprite_index = player_run_R;
-    dir = 2;
+if (sprite_index == player_punch_R or sprite_index == player_punch_L) and image_index == 13 {   //makes sure that damage is only dealt when the animation shows the punch
+        throw_punch(dir, 1, x, y, damage);    
 } 
 
-
-if (mouse_check_button(mb_left)) and (holding == -1) and (cooldown == 32) and stagger_counter == 5{   
-    if dir == 1{
-        sprite_index = player_punch_L;
-        cooldown = 0;
-        }
-    else if dir == 2 {
-        sprite_index = player_punch_R;
-        cooldown = 0;
-        }
-} else if (mouse_check_button(mb_left)) and (holding != -1){
-    if dir == 1{
-        action_create_object_motion(obj_book_thrown_L,x,y, -20,-20)
-        holding = -1;
-        cooldown = 0;
-    }
-    else {
-        action_create_object_motion(obj_book_thrown_R,x,y, 20,20);
-        holding = -1;
-        cooldown = 0;
-    }
-}
-if sprite_index == player_punch_R and image_index == 13 {
-        instance_create(x+64,y+64,obj_punchbox_playerR);      
-
-} else if sprite_index == player_punch_L and image_index == 13 {
-        instance_create(x-64,y+64,obj_punchbox_playerL);
-        
-}
-if sprite_index == player_punch_R and image_index == 15 {
+if sprite_index == player_punch_R and image_index == 15 {   //ends the punch animation
         sprite_index = player_stand_R;
 } else if sprite_index == player_punch_L and image_index == 15 {
         sprite_index = player_stand_L;
         
-}  if !keyboard_check(vk_left) and dir == 1 and sprite_index != player_punch_L{
+}  if !keyboard_check(vk_left) and dir == 1 and sprite_index != player_punch_L and stagger_counter == stagger{  //ensures the stand sprite is used by default
         sprite_index = player_stand_L;
-} else if !keyboard_check(vk_right) and dir == 2 and sprite_index != player_punch_R{
+} else if !keyboard_check(vk_right) and dir == 2 and sprite_index != player_punch_R and stagger_counter == stagger{
         sprite_index = player_stand_R;
 }
 
-if mouse_check_button(mb_right) and stagger_counter == 5{
-    if instance_exists(obj_book_onground) {
-        if abs(obj_book_onground.x - x) &lt;= 100 and abs(obj_book_onground.y - y) &lt;= 100{
-            ind = instance_nearest(x,y, obj_book_onground);
-            holding = obj_book_onground.object_index;
+if mouse_check_button(mb_right) and stagger_counter == stagger{ //picks up item
+    if instance_exists(obj_pickup_throwable) {
+        if abs(obj_pickup_throwable.x - x) &lt;= 100 and abs(obj_pickup_throwable.y - y) &lt;= 100{   //has to be within 100 pixels
+            ind = instance_nearest(x,y, obj_pickup_throwable);
+            holding = ind.object_index
+            throwleft = holding.left;
+            throwright = holding.right;
             with(ind){
                 instance_destroy();
             }
@@ -146,7 +165,7 @@ if mouse_check_button(mb_right) and stagger_counter == 5{
         </arguments>
       </action>
     </event>
-    <event eventtype="4" ename="obj_book_thrown_enemy_L">
+    <event eventtype="4" ename="obj_projectile_L">
       <action>
         <libid>1</libid>
         <id>603</id>
@@ -163,19 +182,40 @@ if mouse_check_button(mb_right) and stagger_counter == 5{
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>hp -= 4;
-stagger_counter = 0;
-vspeed=-3;
-hspeed=-10;
+            <string>if inv_timer == 32 {
+sprite_index = other.friendly == 0;
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="4" ename="obj_projectile_R">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>if inv_timer == 32 and other.friendly == 0{
 sprite_index = player_hit_L;
-gravity = 0.5; 
-gravity_direction = 270;
+}
 </string>
           </argument>
         </arguments>
       </action>
     </event>
-    <event eventtype="4" ename="obj_book_thrown_enemy_R">
+    <event eventtype="4" ename="obj_punchbox">
       <action>
         <libid>1</libid>
         <id>603</id>
@@ -192,124 +232,12 @@ gravity_direction = 270;
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>hp -= 4;
-stagger_counter = 0;
-vspeed=-3;
-hspeed=-10;
-sprite_index = player_hit_R;
-gravity = 0.5; 
-gravity_direction = 270;
-</string>
-          </argument>
-        </arguments>
-      </action>
-    </event>
-    <event eventtype="4" ename="obj_punchbox_enemyR">
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>hp -= 4;
-stagger_counter = 0;
-vspeed=-3;
-hspeed=10;
-sprite_index = player_hit_R;
-gravity = 0.5; 
-gravity_direction = 270;
+            <string>if other.friendly == 0 {
+    hp -= other.damage;
+    do_stagger(self, dir);
+}
 
 </string>
-          </argument>
-        </arguments>
-      </action>
-    </event>
-    <event eventtype="4" ename="obj_punchbox_enemyL">
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>hp -= 4;
-stagger_counter = 0;
-vspeed=-3;
-hspeed=-10;
-sprite_index = player_hit_L;
-gravity = 0.5; 
-gravity_direction = 270;
-
-</string>
-          </argument>
-        </arguments>
-      </action>
-    </event>
-    <event eventtype="4" ename="obj_fox">
-      <action>
-        <libid>1</libid>
-        <id>115</id>
-        <kind>0</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>1</exetype>
-        <functionname>action_bounce</functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>4</kind>
-            <string>0</string>
-          </argument>
-          <argument>
-            <kind>4</kind>
-            <string>0</string>
-          </argument>
-        </arguments>
-      </action>
-      <action>
-        <libid>1</libid>
-        <id>115</id>
-        <kind>0</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>1</exetype>
-        <functionname>action_bounce</functionname>
-        <codestring></codestring>
-        <whoName>other</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>4</kind>
-            <string>0</string>
-          </argument>
-          <argument>
-            <kind>4</kind>
-            <string>0</string>
           </argument>
         </arguments>
       </action>
@@ -333,11 +261,11 @@ gravity_direction = 270;
             <kind>1</kind>
             <string>draw_set_font(font_arial_hp);
 draw_set_valign(fa_center);
-draw_set_halign(fa_center);
-if hp &gt; 50 {
-    draw_text_color(x + 52, y - 10, hp, c_lime, c_lime, c_green, c_green, 1);
-} else if hp &gt; 25 {
-    draw_text_color(x + 52, y - 10, hp, c_yellow, c_yellow, $CC9900, $CC9900, 1);
+draw_set_halign(fa_left);
+if hp &gt; 20 {
+    draw_text_color(52, 10, hp, c_lime, c_lime, c_green, c_green, 1);
+} else if hp &gt; 10 {
+    draw_text_color(x + 52, y - 10, hp, c_yellow, c_yellow, $0099CC, $0099CC, 1);
 } else {
     draw_text_color(x + 52, y - 10, hp, c_red, c_red, c_maroon, c_maroon, 1);
 }
@@ -404,8 +332,8 @@ if hp &gt; 50 {
   <PhysicsObjectKinematic>0</PhysicsObjectKinematic>
   <PhysicsShapePoints>
     <point>40,72</point>
-    <point>72,72</point>
-    <point>72,136</point>
-    <point>40,136</point>
+    <point>80,72</point>
+    <point>80,160</point>
+    <point>40,160</point>
   </PhysicsShapePoints>
 </object>

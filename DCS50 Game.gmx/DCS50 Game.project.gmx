@@ -30,6 +30,10 @@
     <sprite>sprites\fox_hit_L</sprite>
     <sprite>sprites\fox_hit_R</sprite>
     <sprite>sprites\spr_book</sprite>
+    <sprite>sprites\spr_suitcase</sprite>
+    <sprite>sprites\spr_backpack</sprite>
+    <sprite>sprites\spr_grass</sprite>
+    <sprite>sprites\spr_road</sprite>
   </sprites>
   <backgrounds name="background">
     <backgrounds name="Subway">
@@ -44,42 +48,73 @@
       <background>background\bg_chair_side_right</background>
       <background>background\bg_chair_side_left</background>
     </backgrounds>
+    <background>background\bg_temp</background>
   </backgrounds>
   <paths name="paths"/>
   <scripts name="scripts">
-    <script>scripts\script0.gml</script>
+    <script>scripts\throw_object.gml</script>
+    <script>scripts\throw_punch.gml</script>
+    <script>scripts\do_stagger.gml</script>
+    <script>scripts\get_throwing_object.gml</script>
   </scripts>
   <fonts name="fonts">
     <font>fonts\font_arial_hp</font>
   </fonts>
   <objects name="objects">
-    <object>objects\obj_player</object>
-    <object>objects\obj_fox</object>
-    <object>objects\obj_punchbox_playerL</object>
-    <object>objects\obj_punchbox_playerR</object>
-    <object>objects\obj_punchbox_enemyL</object>
-    <object>objects\obj_punchbox_enemyR</object>
-    <objects name="Subway">
-      <object>objects\obj_floor</object>
-      <object>objects\obj_wall</object>
-      <object>objects\obj_ceiling</object>
+    <objects name="Interactables">
+      <objects name="Projectiles">
+        <objects name="Specifics">
+          <objects name="left">
+            <object>objects\obj_book_thrown_L</object>
+          </objects>
+          <objects name="Right">
+            <object>objects\obj_book_thrown_R</object>
+          </objects>
+          <object>objects\obj_projectile_R</object>
+          <object>objects\obj_projectile_L</object>
+        </objects>
+        <object>objects\obj_projectile</object>
+      </objects>
+      <objects name="Pickups">
+        <objects name="Throwables">
+          <objects name="Specifics">
+            <object>objects\obj_book_onground</object>
+          </objects>
+          <object>objects\obj_pickup_throwable</object>
+        </objects>
+      </objects>
     </objects>
-    <object>objects\obj_barrier</object>
-    <objects name="friendly_projectiles">
-      <object>objects\obj_book_thrown_R</object>
-      <object>objects\obj_book_thrown_L</object>
-      <object>objects\obj_projectile</object>
+    <objects name="Main Classes">
+      <object>objects\obj_punchbox</object>
+      <object>objects\obj_view_controller</object>
     </objects>
-    <object>objects\obj_book_onground</object>
-    <objects name="enemy_projectiles">
-      <object>objects\obj_book_thrown_enemy_R</object>
-      <object>objects\obj_book_thrown_enemy_L</object>
-      <object>objects\obj_projectile_enemy</object>
+    <objects name="People">
+      <objects name="Enemies">
+        <object>objects\obj_enemy_fox</object>
+      </objects>
+      <object>objects\obj_player</object>
+      <object>objects\obj_enemy</object>
     </objects>
-    <object>objects\obj_pickup</object>
+    <objects name="Barriers">
+      <objects name="Subway">
+        <object>objects\obj_floor</object>
+        <object>objects\obj_wall</object>
+        <object>objects\obj_ceiling</object>
+        <object>objects\obj_backpack</object>
+        <object>objects\obj_suitcase</object>
+      </objects>
+      <object>objects\obj_barrier</object>
+      <objects name="Outside">
+        <object>objects\obj_grass</object>
+        <object>objects\obj_road</object>
+      </objects>
+    </objects>
   </objects>
   <rooms name="rooms">
     <room>rooms\rm_subway_car</room>
+    <room>rooms\rm_subway_turnstyles</room>
+    <room>rooms\rm_subway_stairs</room>
+    <room>rooms\rm_outside_1</room>
   </rooms>
   <help>
     <rtf>help.rtf</rtf>
