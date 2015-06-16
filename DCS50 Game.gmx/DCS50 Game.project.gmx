@@ -59,6 +59,8 @@
   </scripts>
   <fonts name="fonts">
     <font>fonts\font_arial_hp</font>
+    <font>fonts\font_tutorial</font>
+    <font>fonts\font_title</font>
   </fonts>
   <objects name="objects">
     <objects name="Interactables">
@@ -108,6 +110,11 @@
         <object>objects\obj_grass</object>
         <object>objects\obj_road</object>
       </objects>
+    </objects>
+    <objects name="texts">
+      <object>objects\obj_movetut</object>
+      <object>objects\obj_intro</object>
+      <object>objects\obj_jumptut</object>
     </objects>
   </objects>
   <rooms name="rooms">
